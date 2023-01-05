@@ -1,7 +1,7 @@
 async function signUp(e){
     try{
-        e.preventdefault();
-        console.log(e.target.emsil.value);
+        e.preventDefault();
+        console.log(e.target.email.value);
         const signUpDetails={
             name: e.target.name.value,
             email: e.target.email.value,
@@ -9,7 +9,7 @@ async function signUp(e){
         }
         console.log(signUpDetails);
         const response= await axios.post('http://localhost:3000/user/signup', signUpDetails)
-        if(response.status === 201){
+        if(response.status === 200){
             window.location.href='../login/login.html';
         }
         else{
@@ -18,6 +18,5 @@ async function signUp(e){
     }
     catch(err){
         document.body.innerHTML=`<div style='color:red;'>${err}</div>`
-
     }
 }
