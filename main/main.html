@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense-Tracker</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+    <div class="login-form">
+        <h1 class="title">Expense Tracker</h1>
+    
+        <form id="my-form" onsubmit="addExpensive(event)" >
+            <p>Amount:</p>
+            <input type="number" name="amount" placeholder="0123" required>
+            <p>Description:</p>
+            <input type="text" name="description" placeholder="Description" required>
+            <p>Category:</p>
+            <select name="category">
+                <option value="FOOD">FOOD</option>
+                <option value="PETROL">PETROL</option>
+                <option value="SALARY">SALARY</option>
+                <option value="OTHERS">OTHERS</option>
+            </select>
+            <br>
+            <input class="btn" type="submit" value="AddExpensive">
+    </form>
+    <ul id="list of expenses" class="'list-group"></ul>
+    </div>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>

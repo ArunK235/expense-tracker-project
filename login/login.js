@@ -9,7 +9,7 @@ async function login(e){
         console.log(logInDetails);
         const response= await axios.post('http://localhost:3000/user/login', logInDetails)
         if(response.status === 200){
-            alert(response.data.message)
+            window.location.href="../main/main.html";
         }
         else{
             throw new Error('failed to login')
