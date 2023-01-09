@@ -1,5 +1,5 @@
 const User = require('../models/user')
-
+const jwt = require('jsonwebtoken')
 const bcrypt= require('bcrypt')
 
 function stringvalid(string){
@@ -19,9 +19,11 @@ module.exports.addUser=async (req,res,next)=>{
         const saltrounds= 10;
         bcrypt.hash(password, saltrounds, async(err, hash)=>{
             console.log(err);
-            await User.create({name,email,password:hash })
+            await User.create({name,email,password:hash }).then((user)=>{
+                return res.status(200).json({message:'sucessfully created the user'});
+            })
             
-            return res.status(200).json({message:'sucessfully created the user'});
+            
         
         })
         
@@ -29,6 +31,12 @@ module.exports.addUser=async (req,res,next)=>{
         console.log(err)
     } 
 }
+function generateToken(id,name){
+    return jwt.sign({userId : id, name:name},  'secretkey')
+}
+
+
+
 module.exports.getUser= async (req,res,next)=>{
     try{
         const {email, password}= req.body;
@@ -45,7 +53,7 @@ module.exports.getUser= async (req,res,next)=>{
                     }
                     else if(result === true)
                     {
-                        res.status(200).json({ success: true, message: "user successfully loged in"})
+                        res.status(200).json({ success: true, message: "user successfully loged in", token: generateToken(user[0].id, user[0].name)})
                     }
                     else{
                         return res.status(401).json({ success:false, message: " User not authorized"})

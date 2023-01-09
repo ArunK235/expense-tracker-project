@@ -10,7 +10,8 @@ async function addExpensive(e){
             category: e.target.category.value
         }
         console.log(expenseDetails);
-        const response= await axios.post('http://localhost:3000/expense/addExpensive', expenseDetails)
+        const token= localStorage.getItem('token')
+        const response= await axios.post('http://localhost:3000/expense/addExpensive', expenseDetails,{headers:{'Authorization': token}})
         if(response.status === 200){
             alert(response.data.message)
             ShowExpenseOnScreen(expenseDetails);
@@ -27,14 +28,16 @@ async function addExpensive(e){
 
 
 window.addEventListener('DOMContentLoaded',()=>{
-    axios.get('http://localhost:3000/expense/getExpensive')
+    const token= localStorage.getItem('token')
+    axios.get('http://localhost:3000/expense/getExpensive',{headers:{'Authorization': token}})
     .then((response)=>{
         response.data.expense.forEach(expense =>{
             
             ShowExpenseOnScreen(expense);
         })
-        .catch(err =>console.log(err))
+        
     })
+    .catch(err =>console.log(err))
 })
 
 function ShowExpenseOnScreen(expense){
@@ -45,7 +48,8 @@ function ShowExpenseOnScreen(expense){
                               <button onclick='deleteExpense(event , ${expense.id})'>Delete Expense</button></li>`
 }
 async function deleteExpense(e,expenseid){
-    await axios.delete(`http://localhost:3000/expense/deleteExpensive/${expenseid}`)
+    const token= localStorage.getItem('token')
+    await axios.delete(`http://localhost:3000/expense/deleteExpensive/${expenseid}`,{headers:{'Authorization': token}})
     .then(() =>{
         removeExpenseFromScreen(expenseid);
     })
@@ -54,5 +58,4 @@ async function deleteExpense(e,expenseid){
 function removeExpenseFromScreen(expenseid){
     const expenseElemId = `expense-${expenseid}`;
     document.getElementById(expenseElemId).remove();
-
 }
