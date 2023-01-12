@@ -31,9 +31,10 @@ module.exports.addUser=async (req,res,next)=>{
         console.log(err)
     } 
 }
-function generateToken(id,name){
-    return jwt.sign({userId : id, name:name},  'secretkey')
+function generateToken  (id,name,ispremiumuser){
+    return jwt.sign({userId : id, name:name, ispremiumuser},  'secretkey')
 }
+
 
 
 
@@ -53,7 +54,7 @@ module.exports.getUser= async (req,res,next)=>{
                     }
                     else if(result === true)
                     {
-                        res.status(200).json({ success: true, message: "user successfully loged in", token: generateToken(user[0].id, user[0].name)})
+                        res.status(200).json({ success: true, message: "user successfully loged in", token: generateToken(user[0].id, user[0].name, user[0].ispremiumuser)})
                     }
                     else{
                         return res.status(401).json({ success:false, message: " User not authorized"})

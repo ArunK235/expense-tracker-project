@@ -1,17 +1,16 @@
-async function login(e){
+async function signUp(e){
     try{
         e.preventDefault();
-        const logInDetails={
-            
+        console.log(e.target.email.value);
+        const signUpDetails={
+            name: e.target.name.value,
             email: e.target.email.value,
             password: e.target.password.value
         }
-        console.log(logInDetails);
-        const response= await axios.post('http://localhost:3000/user/login', logInDetails)
+        console.log(signUpDetails);
+        const response= await axios.post('http://localhost:3000/user/signup', signUpDetails)
         if(response.status === 200){
-            localStorage.setItem('token', response.data.token)
-            window.location.href="../main/main.html";
-            
+            window.location.href="../login/login.html";
         }
         else{
             throw new Error('failed to login')
@@ -21,4 +20,3 @@ async function login(e){
         document.body.innerHTML=`<div style='color:red;'>${err}</div>`
     }
 }
-
