@@ -19,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use('/user',userR)
+app.use('/password',userR)
 app.use('/expense', expenseR)
 app.use('/purchase',purchaseR)
 app.use('/premium',premiumR)

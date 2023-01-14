@@ -47,6 +47,7 @@ body{
 }
 .btn{
     gap: 50px;
+    
 }
 .login-form input{
     font-size: 14px;

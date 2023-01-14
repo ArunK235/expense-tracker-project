@@ -22,9 +22,6 @@ module.exports.addUser=async (req,res,next)=>{
             await User.create({name,email,password:hash }).then((user)=>{
                 return res.status(200).json({message:'sucessfully created the user'});
             })
-            
-            
-        
         })
         
     }catch(err){
@@ -59,8 +56,7 @@ module.exports.getUser= async (req,res,next)=>{
                     else{
                         return res.status(401).json({ success:false, message: " User not authorized"})
                     }
-                })
-                
+                })   
             }
             else{
                 return res.status(404).json({success: false, message: 'User does not exist'})
@@ -73,4 +69,19 @@ module.exports.getUser= async (req,res,next)=>{
     catch(err) {
         console.log(err);
     }
+}
+module.exports.SentForgetPasswordMail = async(req,res,next)=>{
+    const {email}= req.body;
+    if( stringvalid(email)){
+        res.status(500).json({message: 'something missing'})
+    }
+    await User.findAll({ where: { email } })
+    .then(user =>{
+        if(user){
+            return res.status(202).json({ success: true , message:'mail has sent successfully'})
+        }
+        else{
+            res.status(402).json({success : false})
+        }
+    })
 }
