@@ -21,7 +21,7 @@ module.exports.getExpensive = async(req,res)=>{
             return res.status(402).json({error:err, success: false})
         })
     }
-    catch{
+    catch(err){
         console.log(err)
     }
 }

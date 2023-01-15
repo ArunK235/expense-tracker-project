@@ -9,6 +9,6 @@ router.post("/signup", userController.addUser);
 
 router.post("/login",userController.getUser);
 
-router.post('/forgotpassword', userController.SentForgetPasswordMail)
+
 
 module.exports=router;

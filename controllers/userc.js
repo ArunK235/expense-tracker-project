@@ -70,18 +70,3 @@ module.exports.getUser= async (req,res,next)=>{
         console.log(err);
     }
 }
-module.exports.SentForgetPasswordMail = async(req,res,next)=>{
-    const {email}= req.body;
-    if( stringvalid(email)){
-        res.status(500).json({message: 'something missing'})
-    }
-    await User.findAll({ where: { email } })
-    .then(user =>{
-        if(user){
-            return res.status(202).json({ success: true , message:'mail has sent successfully'})
-        }
-        else{
-            res.status(402).json({success : false})
-        }
-    })
-}
