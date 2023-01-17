@@ -2,6 +2,7 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt= require('bcrypt')
 
+
 function stringvalid(string){
     if(string === undefined || string.length === 0){
         return true;
@@ -31,9 +32,6 @@ module.exports.addUser=async (req,res,next)=>{
 function generateToken  (id,name,ispremiumuser){
     return jwt.sign({userId : id, name:name, ispremiumuser},  'secretkey')
 }
-
-
-
 
 module.exports.getUser= async (req,res,next)=>{
     try{

@@ -12,4 +12,5 @@ router.get('/getExpensive', userauthentication.Authenticate ,expenseController.g
 
 router.delete('/deleteExpensive/:expenseid', userauthentication.Authenticate ,expenseController.deleteExpensive)
 
+router.get('/download',userauthentication.Authenticate , expenseController.downloadexpense)
 module.exports=router;

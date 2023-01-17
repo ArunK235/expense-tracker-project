@@ -46,6 +46,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     if(ispremiumuser){
         showPremiumuser();
         showLeaderBoard();
+        download();
     }
     axios.get('http://localhost:3000/expense/getExpensive',{headers:{'Authorization': token}})
     .then((response)=>{
@@ -64,6 +65,8 @@ function ShowExpenseOnScreen(expense){
     
     parentElement.innerHTML +=`<li id=${expenseElemId}> ${expense.amount}-${expense.description}-${expense.category}
                               <button onclick='deleteExpense(event , ${expense.id})'>Delete Expense</button></li>`
+                
+                        
 }
 async function deleteExpense(e,expenseid){
     const token= localStorage.getItem('token')
@@ -97,6 +100,7 @@ document.getElementById('rzp-button').onclick= async function(e){
             document.getElementById('message').innerHTML='You are a Premium User';
             localStorage.setItem('token', res.data.token);
             showLeaderBoard();
+            download();
         }
     }
     const rzp1= new Razorpay(options);
@@ -122,6 +126,27 @@ function showLeaderBoard(){
         userLeaderBoard.data.forEach((userdeatils)=>{
             LeaderboardElem.innerHTML +=`<li>Name -${userdeatils.name} Total Expense -${userdeatils.total_cost || 0}</li>`
         })
+    }
+    document.getElementById('message').appendChild(inputElement);
+}
+
+function download(){
+    const inputElement= document.createElement('input')
+    inputElement.type='button'
+    inputElement.value='Download'
+    inputElement.onclick= async()=>{
+        const token = localStorage.getItem('token')
+        var response =await axios.get('http://localhost:3000/user/download', { headers: {"Authorization" : token} })
+        console.log(response)
+        if(response.status === 200){
+            var a = document.createElement("a");
+            a.href = response.data.fileURL;
+            a.download = 'myexpense.csv';
+            a.click();
+        } else {
+            throw new Error(response.data.message)
+        }
+
     }
     document.getElementById('message').appendChild(inputElement);
 }
