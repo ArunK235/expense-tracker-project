@@ -14,7 +14,7 @@ module.exports.addExpensive= async (req,res,next)=>{
     catch(err){
         console.log(err)
     } 
-}
+}/*
 module.exports.getExpensive = async(req,res)=>{
     try{
         Expense.findAll({where:{ userId : req.user.id}}).then(expense =>{
@@ -27,7 +27,44 @@ module.exports.getExpensive = async(req,res)=>{
     catch(err){
         console.log(err)
     }
+}*/
+const Items_Per_Page = 1;
+module.exports.getExpensive = async(req,res)=>{
+    try{
+        const page = req.query.page || 1;
+        let totalItems;
+        Expense.count({ where: { userId: req.user.id } })
+            .then((total) => {
+                //console.log(total,'arun')
+                totalItems = total
+                //console.log(totalItems);
+                return Expense.findAll({
+                    where: { userId: req.user.id },
+                    offset: ((page - 1) * Items_Per_Page),
+                    limit: Items_Per_Page,
+                });
+            })
+            .then(expense => {
+                //console.log(expense,'arun')
+                res.json({
+                    expense: expense,
+                    currentPage: page,
+                    hasNextPage: Items_Per_Page * page < totalItems,
+                    nextPage: Number(page) + 1,
+                    hasPreviousPage: page > 1,
+                    previousPage: Number(page) - 1,
+                    lastPage: Math.ceil(totalItems / Items_Per_Page),
+                });
+            })
+            .catch(err => {
+                return res.status(402).json({error:err, success: false})
+            });
+    }
+    catch(err){
+        console.log(err)
+    }
 }
+
 module.exports.deleteExpensive = async(req,res)=>{
     try{
         const expenseid = req.params.expenseid;

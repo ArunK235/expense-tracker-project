@@ -1,3 +1,8 @@
+
+
+const pagination = document.getElementById("pagination");
+const token = localStorage.getItem("token");    
+
 async function addExpensive(e){
     try{
         e.preventDefault();
@@ -15,6 +20,7 @@ async function addExpensive(e){
         if(response.status === 200){
             alert(response.data.message)
             ShowExpenseOnScreen(expenseDetails);
+            
         }
         else{
             throw new Error('failed to login')
@@ -38,26 +44,11 @@ function showPremiumuser(){
     document.getElementById('message').innerHTML='You are a Premium User'; 
 }
 
-window.addEventListener('DOMContentLoaded',()=>{
-    const token= localStorage.getItem('token')
-    const decodetoken= parseJwt(token);
-    console.log(decodetoken);
-    const ispremiumuser= decodetoken.ispremiumuser
-    if(ispremiumuser){
-        showPremiumuser();
-        showLeaderBoard();
-        download();
-    }
-    axios.get('http://localhost:3000/expense/getExpensive',{headers:{'Authorization': token}})
-    .then((response)=>{
-        response.data.expense.forEach(expense =>{
-            
-            ShowExpenseOnScreen(expense);
-        })
-        
-    })
-    .catch(err =>console.log(err))
-})
+
+
+
+
+
 
 function ShowExpenseOnScreen(expense){
     const parentElement=document.getElementById('list of expenses');
@@ -149,4 +140,142 @@ function download(){
 
     }
     document.getElementById('message').appendChild(inputElement);
+
+}/*
+window.addEventListener('DOMContentLoaded',()=>{
+    
+    const page=1;
+    getPost(page);
+    
+   
+})
+function getPost(page){
+    
+    const token= localStorage.getItem('token')
+    const decodetoken= parseJwt(token);
+    //console.log(decodetoken);
+    const ispremiumuser= decodetoken.ispremiumuser
+    if(ispremiumuser){
+        showPremiumuser();
+        showLeaderBoard();
+        download();
+    }
+    
+    axios.get(`http://localhost:3000/expense/getExpensive?page=${page}`,{headers:{'Authorization': token}})
+    .then((response)=>{
+        console.log(response)
+            
+            for(var i=0;i<response.data.expense.length;i++){
+                ShowExpenseOnScreen(response.data.expense[i]);
+                
+                showPagination(response.data.currentPage, response.data.hasNextPage, response.data.nextPage, response.data.hasPreviousPage, response.data.previousPage, response.data.lastPage,response.data.firstPage )    
+                
+            } 
+        
+    })
+    .catch(err =>console.log(err))
 }
+
+function showPagination(
+    currentPage,
+    hasNextPage,
+    nextPage,
+    hasPreviousPage,
+    previousPage,
+    lastPage
+) {
+
+    pagination.innerHTML = '';
+
+    if(hasPreviousPage){
+        const btn2 = document.createElement('button')
+        btn2.classList.add('active');
+        btn2.innerHTML = PreviousPage
+        btn2.addEventListener('click', () => getPost(previousPage));
+        pagination.appendChild(btn2)
+    }
+        const btn1 = document.createElement('button')
+        btn1.classList.add('active');
+        btn1.innerHTML = `<h3>${currentPage}</h3>`
+        btn1.addEventListener('click', () => getPost(currentPage));
+        pagination.appendChild(btn1);
+
+    if(hasNextPage) {
+        const btn3 = document.createElement('button');
+        btn3.classList.add('active');
+        btn3.innerHTML = nextPage
+        btn3.addEventListener('click', () => getPost(nextPage))
+        pagination.appendChild(btn3);
+    }
+    
+}*/
+window.addEventListener('DOMContentLoaded',()=>{
+    
+    const page=1;
+    getPost(page);
+   
+})
+function getPost(page){
+    
+    const token= localStorage.getItem('token');
+    const decodetoken= parseJwt(token);
+    //console.log(decodetoken);
+    const ispremiumuser= decodetoken.ispremiumuser;
+    if(ispremiumuser){
+        showPremiumuser();
+        showLeaderBoard();
+        download();
+    }
+    
+    axios.get(`http://localhost:3000/expense/getExpensive?page=${page}`,{headers:{'Authorization': token}})
+    .then((response)=>{
+        console.log(response)
+            
+            for(var i=0;i<response.data.expense.length;i++){
+                ShowExpenseOnScreen(response.data.expense[i]);
+                
+                showPagination(response.data.currentPage, response.data.hasNextPage, response.data.nextPage, response.data.hasPreviousPage, response.data.previousPage, response.data.lastPage,response.data.firstPage )    
+                
+            } 
+        
+    })
+    .catch(err =>console.log(err))
+}
+
+function showPagination(
+    currentPage,
+    hasNextPage,
+    nextPage,
+    hasPreviousPage,
+    previousPage,
+    lastPage
+) {
+
+    pagination.innerHTML = '';
+
+    if(hasPreviousPage){
+        const btn2 = document.createElement('button');
+        btn2.classList.add('active');
+        btn2.innerHTML = "PreviousPage";
+        btn2.addEventListener('click', () => getPost(previousPage));
+        pagination.appendChild(btn2);
+    }
+        const btn1 = document.createElement('button');
+        btn1.classList.add('active');
+        btn1.innerHTML = `<h3>${currentPage}</h3>`;
+        btn1.addEventListener('click', () => getPost(currentPage));
+        pagination.appendChild(btn1);
+
+    if(hasNextPage) {
+        const btn3 = document.createElement('button');
+        btn3.classList.add('active');
+        btn3.innerHTML = nextPage;
+        btn3.addEventListener('click', () => getPost(nextPage));
+        pagination.appendChild(btn3);
+    }
+    
+}
+
+
+
+
