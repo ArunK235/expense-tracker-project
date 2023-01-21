@@ -28,7 +28,7 @@ module.exports.getExpensive = async(req,res)=>{
         console.log(err)
     }
 }*/
-const Items_Per_Page = 1;
+const itemsPerPage=1;
 module.exports.getExpensive = async(req,res)=>{
     try{
         const page = req.query.page || 1;
@@ -40,8 +40,8 @@ module.exports.getExpensive = async(req,res)=>{
                 //console.log(totalItems);
                 return Expense.findAll({
                     where: { userId: req.user.id },
-                    offset: ((page - 1) * Items_Per_Page),
-                    limit: Items_Per_Page,
+                    offset: ((page - 1) * itemsPerPage),
+                    limit: itemsPerPage,
                 });
             })
             .then(expense => {
@@ -49,11 +49,11 @@ module.exports.getExpensive = async(req,res)=>{
                 res.json({
                     expense: expense,
                     currentPage: page,
-                    hasNextPage: Items_Per_Page * page < totalItems,
+                    hasNextPage: itemsPerPage * page < totalItems,
                     nextPage: Number(page) + 1,
                     hasPreviousPage: page > 1,
                     previousPage: Number(page) - 1,
-                    lastPage: Math.ceil(totalItems / Items_Per_Page),
+                    lastPage: Math.ceil(totalItems / itemsPerPage),
                 });
             })
             .catch(err => {

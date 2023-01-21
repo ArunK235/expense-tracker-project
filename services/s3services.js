@@ -1,9 +1,11 @@
 const AWS = require('aws-sdk');
 
+
 const uploadToS3=(data, filename)=>{
-    const BUCKET_NAME ='expensetracking235';
-    const IAM_USER_KEY='AKIAVGJDC44765WCTHP6';
-    const IAM_USER_SECRET_KEY ='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';
+    try{
+        const BUCKET_NAME = process.env.BUCKET_NAME;
+         const IAM_USER_KEY=process.env.IAM_USER_KEY
+        const IAM_USER_SECRET_KEY =process.env.IAM_USER_SECRET_KEY
 
     let s3bucket = new AWS.S3({
         accessKeyId: IAM_USER_KEY,
@@ -27,7 +29,12 @@ const uploadToS3=(data, filename)=>{
                     resolve(s3response.Location) ;
                 }
             })
-        })    
+        })
+    }
+    catch(err){
+        console.log(err);
+    }
+        
     
 }
 module.exports={

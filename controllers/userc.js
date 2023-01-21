@@ -1,7 +1,8 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt= require('bcrypt')
-
+const dotenv = require('dotenv');
+dotenv.config();
 
 function stringvalid(string){
     if(string === undefined || string.length === 0){
@@ -30,7 +31,7 @@ module.exports.addUser=async (req,res,next)=>{
     } 
 }
 function generateToken  (id,name,ispremiumuser){
-    return jwt.sign({userId : id, name:name, ispremiumuser},  'secretkey')
+    return jwt.sign({userId : id, name:name, ispremiumuser},   process.env.SECRET_KEY )
 }
 
 module.exports.getUser= async (req,res,next)=>{

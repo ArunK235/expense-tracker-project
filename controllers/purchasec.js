@@ -6,10 +6,7 @@ dotenv.config();
 
 module.exports.purchasePremium =  (req,res)=>{
     try{
-        /*var rzp = new Razorpay ({
-            key_id: 'rzp_test_2X1vrJVBMfHawA',
-            key_secret: 'ieu6L1lUFK3DKsPXH4mEAkDY'
-        })*/
+        
         var rzp = new Razorpay({
             key_id: process.env.RAZORPAY_KEY_ID,
             key_secret: process.env.RAZORPAY_KEY_SECRET
