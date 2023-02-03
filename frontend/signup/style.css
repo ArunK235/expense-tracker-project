@@ -1,0 +1,120 @@
+/* Overall page styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url(photo-1530533718754-001d2668365a.jfif);
+}
+
+/* Styling for the title */
+.title {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 36px;
+    color: aliceblue;
+}
+h1{
+    text-align: center;
+    margin: 20px 0;
+    font-size: 36px;
+    color: aliceblue;
+}
+
+/* Form styling */
+#my-form {
+    margin: 30px auto;
+    width: 300px;
+    text-align: center;
+    color: aliceblue;
+}
+#rzp-button{
+    text-align: center;
+    margin: 20px 0;
+    
+    
+}
+
+
+/* Input styling */
+input[type="number"],
+input[type="text"] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    width: 100%;
+    color: rgb(6, 6, 6);
+}
+
+/* Select styling */
+select {
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Button styling */
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+.list-group{
+    text-align: center;
+    margin: 20px 0;
+    font-size: 18px;
+    color: aliceblue;
+}
+a{
+    
+    color: aliceblue;
+}
+
+/* Styling for the message div */
+#message {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 18px;
+    color: aliceblue;
+}
+#data{
+    text-align: center;
+    margin: 20px 0;
+    color: aliceblue;
+    
+}
+#price{
+    text-align: center;
+    font-size: 1rem;
+    background-color: #B0A8B9;
+    border:1px solid black;
+    width: 3rem;
+    height: 1rem;
+}
+
+#list{
+    text-align: center;
+    margin: 20px 0;
+    color: aliceblue;
+}
+.litext{
+    font-size: 18px;
+    align-items: center;
+    margin-top: 0%;
+}
+.libtn{
+    width: 5rem;
+    margin-left: 1rem;  
+}
+
+
+
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense-Tracker</title>
+    <link rel="stylesheet" type="text/css" href="../signup/style.css">
+</head>
+<body>
+    <div class="login-form">
+        <h1 class="title">Expense Tracker</h1>
+    
+        <form id="my-form" onsubmit="addExpensive(event)" >
+            <p>Amount:</p>
+            <input type="number" name="amount" placeholder="0123" required>
+            <p>Description:</p>
+            <input type="text" name="description" placeholder="Description" required>
+            <p>Category:</p>
+            <select name="category">
+                <option value="FOOD">FOOD</option>
+                <option value="PETROL">FUEL</option>
+                <option value="SALARY">SALARY</option>
+                <option value="OTHERS">OTHERS</option>
+            </select>
+            <br>
+            <input class="btn" type="submit" value="AddExpensive">       
+    </form>
+    <div id="message"></div>
+    </div>
+    <span id="razor-button">
+        <button id="rzp-button">BuyPremium</button>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    </span> 
+    <h1>Expenses</h1>
+    <div id="data">
+        <ul id="list" style="list-style: none" ></ul>
+        <footer id="pagination">
+            
+        </footer>
+        <footer id="priceList">
+            <label for="price">Rows Per Page</label>
+        <select name="price" id="price" onchange="rowChange(event)">
+            <option value='0'>0</option>
+            <option value='2'>2</option>
+            <option value='4'>4</option>
+            <option value='6'>6</option>
+          </select>
+        </footer>
+    </div>
+    <ul id="leaderboard" class="list-group"  style="list-style: none"></ul>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>

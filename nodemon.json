@@ -1,0 +1,7 @@
+{
+    "env":{
+        "BUCKET_NAME":"expensetracking235",
+        "IAM_USER_KEY":"AKIAVGJDC44765WCTHP6",
+        "IAM_USER_SECRET_KEY":"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"
+    }
+}
